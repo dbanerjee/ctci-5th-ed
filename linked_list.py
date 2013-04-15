@@ -68,8 +68,14 @@ class LinkedList:
 
   def append(self, item):
     node = Node(item)
-    self.tail.next = node
-    self.tail = node
+    if self.tail:
+      self.tail.next = node
+    
+    self.tail = node  
+    
+    if not self.head:
+      self.head = node
+
     self.length += 1
 
   def index(self, item):
