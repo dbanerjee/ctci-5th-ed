@@ -3,6 +3,8 @@
 # right, and the third stack from the middle by alternating left and right.
 # This solution is best when the third (middle) stack is favoured.
 
+import unittest
+
 class TertiaryStack:
 
   def __init__(self, size):
@@ -111,3 +113,32 @@ class TertiaryStack:
   def enumerate(self):
     return self.items
 
+s = TertiaryStack(10)
+s.push(1, 'a')
+s.push(2, 'A')
+s.push(3, 1)
+s.push(3, 2)
+s.push(3, 3)
+
+class TertiaryStackTest(unittest.TestCase):
+
+  def test_tertiary_stack(self):
+    self.assertEqual(s.enumerate(), ['a', None, None, None, 2, 1, 3, None,
+                                     None, 'A'])
+
+    s.push(1, 'b')
+    s.push(2, 'B')
+    self.assertEqual(s.enumerate(), ['a', 'b', None, None, 2, 1, 3, None,
+                                     'B', 'A'])
+
+
+    s.push(2, 'C')
+    self.assertRaises(Exception, s.push, 2, 'D')
+
+    s.pop(1)
+    self.assertEqual(s.enumerate(), ['a', None, None, None, 2, 1, 3, 'C',
+                                     'B', 'A'])
+
+    
+if __name__ == '__main__':
+  unittest.main()
