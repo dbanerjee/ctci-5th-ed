@@ -27,7 +27,6 @@ def build_bst(coll):
   
   elems = partition(coll)
   for e in elems:
-    print e
     t.add(e)
 
   return t
