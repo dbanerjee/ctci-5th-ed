@@ -1,22 +1,22 @@
 # Implement a function to check if a binary tree is a binary search tree.
 
 import binary_search_tree as bin
+import sys
 
-def is_bst(cur_node):
-  if not cur_node or cur_node.is_leaf():
+def _is_bst(node, min_val, max_val):
+  if node is None:
     return True
 
-  is_valid = False
-  if cur_node.has_both_children():
-    if cur_node.left_child.item < cur_node.item and\
-       cur_node.right_child.item > cur_node.item:
-      is_valid = True
-  elif cur_node.left_child and cur_node.left_child.item < cur_node.item:
-    is_valid = True
-  elif cur_node.right_child and cur_node.right_child.item > cur_node.item:
-    is_valid = True
+  if node.item > min_val and\
+     node.item < max_val and\
+     _is_bst(node.left_child, min_val, node.item) and\
+     _is_bst(node.right_child, node.item, max_val):
+    return True
+  else:
+    return False
+
+def is_bst(node):
+  return _is_bst(node, -sys.maxint - 1,  sys.maxint)
+ 
 
 
-  return is_valid and\
-         is_bst(cur_node.left_child) and\
-         is_bst(cur_node.right_child)
