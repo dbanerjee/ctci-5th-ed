@@ -21,5 +21,8 @@ class Stack:
   def count(self):
     return self.len
 
+  def is_empty(self):
+    return self.len == 0
+
 
 
