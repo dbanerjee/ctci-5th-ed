@@ -44,16 +44,29 @@ def build_tower(persons):
   weight = 1
   sort_persons(persons, height)
 
-  tower = [persons[0]]
+  person_idxs = [0]
+  preds = [None] * len(persons)
+
   for i in range(1, len(persons)):
-    for j in range(len(tower)):
-      if persons[i][weight] < tower[j][weight]:
-        tower[j] = persons[i]
+    for j in range(len(person_idxs)):
+      if persons[i][weight] < persons[person_idxs[j]][weight]:
+        preds[i] = person_idxs[j - 1]
+        person_idxs[j] = i
         break
-    if persons[i][weight] > tower[-1][weight]:
-      tower.append(persons[i])
+      elif persons[i][weight] is persons[person_idxs[j]][weight]:
+        break
+    if persons[i][weight] > persons[person_idxs[-1]][weight]:
+      preds[i] = person_idxs[-1]
+      person_idxs.append(i)
 
-  return "The tower is " + str(len(tower)) + " persons high: " + str(tower)
+  tower = []
+  pos = person_idxs[-1]
+  for _ in range(len(person_idxs)):
+    tower.append(persons[pos])
+    pos = preds[pos]
 
-ps = [(3, 1), (4, 6), (2, 2), (5, 4), (2, 3), (6, 5)]
+  return "The tower is " + str(len(tower)) + " persons high: " +\
+          str(tower[::-1])
+
+ps = [(65, 90), (70, 150), (56, 90), (56, 80), (75, 190), (60, 95), (68, 110)]
 
