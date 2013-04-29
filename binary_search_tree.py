@@ -33,7 +33,7 @@ class BinarySearchTree:
       cur_node = self.root
       done = False
       while not done:
-        if item < cur_node.item:
+        if item <= cur_node.item:
           if cur_node.left_child:
             cur_node = cur_node.left_child
           else:
