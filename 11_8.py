@@ -27,7 +27,6 @@ class RankingTree:
     self.root = None
 
   def track(self, num):
-
     node = Node(num)
 
     if not self.root:
